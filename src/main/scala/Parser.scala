@@ -35,10 +35,12 @@ object Parser:
     while tokenizer.peek.isSuccess && (tokenizer.peek.get.isWhitespace || tokenizer.peek.get.isOtherPunctuation) do
       tokenizer.poll
 
+    // Represent the End of Sentence as an empty String
     if tokenizer.peek.isSuccess && tokenizer.peek.get.isEndOfSentence then
       tokenizer.poll
       return ""
 
+    // if we are at the end of input pass the failure on
     if tokenizer.peek.isFailure then
       throw tokenizer.peek.failed.get
 

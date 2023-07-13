@@ -25,8 +25,9 @@ class PeekableIterator[T](private val it:Iterator[T]) extends Peekable[T]:
  * Companion object for creating PeekableIterators from an iterator or by chaining iteratars.
  */
 object PeekableIterator:
-  def apply[T](it:Iterator[T]):PeekableIterator[T] = new PeekableIterator[T](it)
-  def apply[TInput, TOutput](it1:Iterator[TInput], getNext: PeekableIterator[TInput]=>TOutput ): PeekableIterator[TOutput] =
+  def apply[T](it:Iterator[T]):Peekable[T] = new PeekableIterator[T](it)
+
+  def apply[TInput, TOutput](it1:Iterator[TInput], getNext: Peekable[TInput]=>TOutput ): Peekable[TOutput] =
     val input = PeekableIterator[TInput](it1)
     PeekableIterator[TOutput](new Iterator[TOutput] {
       override def hasNext: Boolean = input.peek.isSuccess
